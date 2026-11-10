@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assests/style.css">
+    <style>
+        
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    color: #fff;
+}
+.container{
+    width: 100%;
+    max-width: 550px;
+}
+.header{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.logo{
+    font-size: 45px;
+    color: lightblue;
+}
+.header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 10px 0;
+    color: lightblue;
+}
+.header p {
+    color: lightblue;
+    font-size: 14px;
+}
+.location-card{
+       background: #fff;
+    color: #0f172a;
+    padding: 35px;
+    border-radius: 22px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    text-align: center;
+}
+.location-icon{
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+.location-card h2{
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+.description{
+    font-size: 13px;
+    line-height: 1.7;
+    color: #1e293b;
+    margin-bottom: 25px;
+}
+#locateBtn{
+     width: 100%;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    background: #0284c7;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#locateBtn:hover{
+    background-color: #0284c7;
+    transform: translateY(-2px);
+}
+#locateBtn:disabled{
+    opacity: 0.6;
+    cursor: wait;
+}
+.status{
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #0f172a;
+    color: lightblue;
+    border-radius: 10px;
+    font-size: 12px;
+}
+.results{
+    margin-top: 25px;
+    text-align: left;
+    animation: fadeIn 0.5s ease;
+}
+.hidden{
+    display: none;
+}
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
+}
+.result-item span{
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+.copy-btn{
+    width: 100%;
+    padding: 13px;
+    margin-top: 20px;
+    border: none;
+    background: #0284c7;
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.map-link {
+    display: block;
+    text-align: center;
+    margin: 18px 0;
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+#map{
+    width: 100%;
+    height: 250px;
+    border: none;
+    border-radius: 12px;
+}
+footer{
+    text-align: center;
+    color: lightblue;
+    font-size: 11px;
+    margin-top: 25px;
+}
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media(max-width: 480px){
+     .location-card {
+        padding: 25px 18px;
+
+}
+.header h1{
+    font-size: 27px;
+}
+}
+    </style>
+</head>
+<body>
+    <main class="container">
+        <header class="header">
+            <div class="logo">◎</div>
+            <h1>GeoLocate</h1>
+            <p>Professional Location Detection System</p>
+        </header>
+
+        <section class="location-card">
+            <div class="location-icon">📍</div>
+            <h2>Discover Your Location</h2>
+            <p class="description">
+                  Find your current geographical position
+                securely using your browser.
+            </p>
+            <button id="locateBtn">
+                <span>◎</span>Detect My Location
+            </button>
+
+            <div id="status" class="status">
+                Ready to detect your location
+            </div>
+
+            <div id="results" class="results hidden">
+                <div class="result-item">
+                    <span>Latitude</span>
+                    <strong id="latitude">--</strong>
+                </div>
+                <div class="result-item">
+                      <span>longitude</span>
+                    <strong id="longitude">--</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Accuracy</span>
+                    <strong id="accuracy">--</strong>
+                </div>
+                  <div class="result-item">
+                    <span>Altitude</span>
+                    <strong id="altitude">--</strong>
+                </div>
+                  <div class="result-item">
+                    <span>Last Update</span>
+                    <strong id="timestamp">--</strong>
+                </div>
+                <button id="copyBtn" class="copy-btn">
+                    Copy Coordinates
+                </button>
+
+                <a id="mapLink" target="_blank"
+                   rel="noopener noreferrer" class="map-link">
+                    Open in Google Maps ↗
+                </a>
+
+                <iframe
+                    id="map"
+                    title="Your location on the map"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+
+        </section>
+        <footer>
+            <p>© 2026 GeoLocate | Poered by HTML, CSS and JavaScript</p>
+        </footer>
+
+    </main>
+    <script src="./assests/script.js"></script>
+    <script>
+        const locateBtn = document.getElementById("locateBtn");
+const statusBox = document.getElementById("status");
+const result = document.getElementById("results");
+const copyBtn = document.getElementById("copyBtn");
+
+let currentCoordinates = null;
+
+locateBtn.addEventListener("click", () => {
+    if (!navigator.geolocation) {
+        statusBox.textContent =
+            "Geolocation is not supported by your browser.";
+        return;
+    }
+
+    locateBtn.disabled = true;
+    locateBtn.textContent = "Detecting Location...";
+    statusBox.textContent = "Please allow location access.";
+
+    navigator.geolocation.getCurrentPosition(
+        showPosition,
+        showError,
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+    );
+});
+
+function showPosition(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const accuracy = position.coords.accuracy;
+    const altitude = position.coords.altitude;
+
+    currentCoordinates = { latitude, longitude };
+
+    document.getElementById("latitude").textContent =
+        latitude.toFixed(6);
+
+    document.getElementById("longitude").textContent =
+        longitude.toFixed(6);
+
+    document.getElementById("accuracy").textContent =
+        `${Math.round(accuracy)} meters`;
+
+    document.getElementById("altitude").textContent =
+        altitude !== null
+            ? `${altitude.toFixed(2)} meters`
+            : "Unavailable";
+
+    document.getElementById("timestamp").textContent =
+        new Date(position.timestamp).toLocaleString();
+        
+    const mapLink = document.getElementById("mapLink");
+
+    mapLink.href =
+        `https://www.google.com/maps?q=${latitude},${longitude}`;
+    document.getElementById("map").src =
+        `https://maps.google.com/maps?q=${latitude},${longitude}&output=embed`;
+
+    result.classList.remove("hidden");
+
+    statusBox.textContent = "Location detected successfully!";
+    locateBtn.textContent = "Detect Again";
+    locateBtn.disabled = false;
+}
+
+function showError(error) {
+    const errorMessages = {
+        1: "Location permission denied. Allow access in your browser settings.",
+        2: "Your location is unavailable. Please try again.",
+        3: "Location request timed out. Please try again."
+    };
+
+    statusBox.textContent =
+        errorMessages[error.code] || "An unexpected error occurred.";
+
+    locateBtn.textContent = "Try Again";
+    locateBtn.disabled = false;
+}
+
+copyBtn.addEventListener("click", async () => {
+    if (!currentCoordinates) return;
+
+    const { latitude, longitude } = currentCoordinates;
+
+    try {
+        await navigator.clipboard.writeText(
+            `${latitude}, ${longitude}`
+        );
+
+        copyBtn.textContent = "Coordinates Copied!";
+    } catch {
+        statusBox.textContent =
+            "Could not copy coordinates. Please copy them manually.";
+    }
+})
+    </script>
+</body>
+</html>

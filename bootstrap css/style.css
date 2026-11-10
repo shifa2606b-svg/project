@@ -1,0 +1,21 @@
+
+
+
+.nav ul li a :hover{
+    cursor: pointer;
+    color: antiquewhite;
+}
+
+.logoo img{
+    width: 100%;
+}
+
+.logoo{
+    width: 90px;
+    justify-content:left;
+}
+
+.text-y{
+    color: blue;
+}
+
